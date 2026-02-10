@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
-"""Quick start script for Brain Tumor Segmentation Web App"""
+"""Quick start script for Brain Tumor Segmentation Web App - Works anywhere after clone"""
 
 import os
 import subprocess
 import sys
 import time
 import signal
+import shutil
 
-PROJECT_DIR = "/Users/vechhamshivaramsrujan/Downloads/BRAIN TUMOR BY CNN"
+# Dynamically detect project directory (where this script is located)
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 VENV_DIR = os.path.join(PROJECT_DIR, "venv_310")
-PYTHON_310 = "/usr/local/bin/python3.10"
+
+# Find python3.10 or use system python3
+PYTHON_310 = shutil.which("python3.10") or shutil.which("python3") or sys.executable
 
 def run_command(cmd, check=True):
     """Run a shell command"""

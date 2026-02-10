@@ -2,27 +2,32 @@
 
 # Brain Tumor Segmentation Web App - Quick Start Script
 # Usage: ./start.sh
+# Works on any machine after cloning
 
 set -e
 
-PROJECT_DIR="/Users/vechhamshivaramsrujan/Downloads/BRAIN TUMOR BY CNN"
+# Dynamically get the project directory (where this script is located)
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="$PROJECT_DIR/venv_310"
 
 echo "🧠 Brain Tumor Segmentation Web App"
 echo "===================================="
 echo ""
+echo "Project path: $PROJECT_DIR"
+echo ""
 
 # Check if venv exists
 if [ ! -d "$VENV_DIR" ]; then
-    echo "❌ Virtual environment not found!"
     echo "Creating Python 3.10 venv..."
-    /usr/local/bin/python3.10 -m venv "$VENV_DIR"
+    # Try to find python3.10, fall back to python3
+    PYTHON_CMD=$(command -v python3.10 || command -v python3 || echo "python3")
+    $PYTHON_CMD -m venv "$VENV_DIR"
     echo "✅ Venv created"
 fi
 
 # Activate venv
 source "$VENV_DIR/bin/activate"
-echo "✅ Virtual environment activated (Python 3.10)"
+echo "✅ Virtual environment activated"
 
 # Check dependencies
 echo ""
