@@ -1,0 +1,21 @@
+
+# Minimal requirements for inference only (no training needed)
+# The pre-trained model my_model.keras is already available
+
+# Core packages for inference
+# Core packages for inference
+numpy
+matplotlib
+opencv-python
+nibabel
+tqdm
+flask
+flask-cors
+tensorflow
+
+# Optional packages for better functionality
+pandas
+scikit-learn
+Pillow
+
+

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Segmentation AI</title>
+    <link rel="stylesheet" href="/static/styles.css?v=2">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo" onclick="goHome()">
+                <i class="fas fa-brain"></i>
+                <span>BrainAI</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#segmentation" class="nav-link">Segmentation</a>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">AI-Powered</span><br>
+                        Brain Tumor Segmentation
+                    </h1>
+                    <p class="hero-description">
+                        Advanced deep learning model for precise brain tumor detection and segmentation using U-Net
+                        architecture on BraTS 2020 dataset
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Tumor Classes</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Cases</div>
+                        </div>
+                    </div>
+                    <button class="cta-button" onclick="goToSegmentation()">
+                        <span>Get Started</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-visual">
+                    <div class="brain-container">
+                        <div class="brain-outline">
+                            <div class="tumor-spot tumor-1"></div>
+                            <div class="tumor-spot tumor-2"></div>
+                            <div class="tumor-spot tumor-3"></div>
+                        </div>
+                        <div class="scan-lines"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="container">
+                <h2 class="section-title">Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h3>Multi-Modal Analysis</h3>
+                        <p>FLAIR, T1ce, T1, and T2 MRI sequences for comprehensive tumor detection</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Real-time Metrics</h3>
+                        <p>Dice scores, IoU, and accuracy metrics for each segmentation</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Visual Comparison</h3>
+                        <p>Side-by-side comparison of ground truth vs AI predictions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segmentation Page -->
+    <section id="segmentation" class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Brain Tumor Segmentation</h1>
+                <p class="page-subtitle">Select your visualization preferences and run segmentation</p>
+            </div>
+
+            <div class="segmentation-controls">
+                <div class="control-section">
+                    <h3><i class="fas fa-database"></i> Available Data</h3>
+                    <div class="data-grid" id="dataGrid">
+                        <!-- Data will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3><i class="fas fa-image"></i> Visualization Styles</h3>
+                    <div class="style-options">
+                        <label class="style-option">
+                            <input type="checkbox" value="6panel" checked>
+                            <div class="option-card">
+                                <i class="fas fa-th"></i>
+                                <span>6-Panel Segmentation</span>
+                                <small>Complete overlay visualization</small>
+                            </div>
+                        </label>
+                        <label class="style-option">
+                            <input type="checkbox" value="3panel">
+                            <div class="option-card">
+                                <i class="fas fa-columns"></i>
+                                <span>3-Panel View</span>
+                                <small>FLAIR, T1ce, Probability</small>
+                            </div>
+                        </label>
+                        <label class="style-option">
+                            <input type="checkbox" value="hardmask">
+                            <div class="option-card">
+                                <i class="fas fa-mask"></i>
+                                <span>Hard Mask</span>
+                                <small>Discrete segmentation mask</small>
+                            </div>
+                        </label>
+                        <label class="style-option">
+                            <input type="checkbox" value="comparison">
+                            <div class="option-card">
+                                <i class="fas fa-balance-scale"></i>
+                                <span>5-Panel Comparison</span>
+                                <small>GT vs Prediction analysis</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3><i class="fas fa-layer-group"></i> Slice Selection</h3>
+                    <div class="slice-controls">
+                        <input type="text" id="sliceInput" placeholder="50,60,70,80" value="50,60,70,80">
+                        <small>Enter comma-separated slice indices</small>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <button class="run-button" onclick="runSegmentation()">
+                        <i class="fas fa-play"></i>
+                        <span>Run Segmentation</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h3><i class="fas fa-chart-bar"></i> Results</h3>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+        <div class="container">
+            <div class="about-content">
+                <h1 class="page-title">About This Project</h1>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h3>Advanced AI for Medical Imaging</h3>
+                        <p>This project implements a state-of-the-art U-Net deep learning model for brain tumor
+                            segmentation using the BraTS 2020 dataset. The system can detect and segment different types
+                            of brain tumors including necrotic core, edema, and enhancing regions.</p>
+
+                        <h3>Technical Specifications</h3>
+                        <ul>
+                            <li><strong>Model:</strong> U-Net Architecture</li>
+                            <li><strong>Dataset:</strong> BraTS 2020 (MICCAI)</li>
+                            <li><strong>Input:</strong> FLAIR + T1ce MRI sequences</li>
+                            <li><strong>Output:</strong> 4-class segmentation (Background, Necrotic/Core, Edema,
+                                Enhancing)</li>
+                            <li><strong>Metrics:</strong> Dice Score, IoU, Precision, Recall</li>
+                        </ul>
+                    </div>
+                    <div class="about-visual">
+                        <div class="model-architecture">
+                            <div class="model-layer">Input (FLAIR + T1ce)</div>
+                            <div class="model-arrow">↓</div>
+                            <div class="model-layer">U-Net Encoder</div>
+                            <div class="model-arrow">↓</div>
+                            <div class="model-layer">Bottleneck</div>
+                            <div class="model-arrow">↓</div>
+                            <div class="model-layer">U-Net Decoder</div>
+                            <div class="model-arrow">↓</div>
+                            <div class="model-layer">Output (4-class mask)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Processing Segmentation...</h3>
+            <p>This may take a few moments</p>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Segmentation Result</h2>
+                <button class="modal-close" onclick="closeImageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Segmentation Result" style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
+            <div class="modal-footer">
+                <button class="modal-back" onclick="closeImageModal()">Back to Results</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
